@@ -1,5 +1,6 @@
 let html = document.querySelector("#html");
 let style = document.querySelector("#style");
+let telFlag = false;
 
 let article = `/*你好，我是xiaobangsky
     * 接下来我演示一下我的前端功底
@@ -48,6 +49,22 @@ let article = `/*你好，我是xiaobangsky
 }
 `;
 
+//是否手机访问判断
+let telCheck = () =>{
+    let userAgentInfo=navigator.userAgent,
+        agents = new Array("Android","iPhone","SymbianOS","Windows Phone","iPad","iPod");
+
+    for(let v = 0;v < agents.length; v++) { 
+       if(userAgentInfo.indexOf(agents[v])>0) { 
+        telFlag = true; 
+         break; 
+       } 
+   } 
+   return telFlag;
+}
+
+telCheck();
+
 let article2 = "";
 let n = 0;
 
@@ -65,12 +82,13 @@ let n = 0;
         html.innerHTML = article2;
         style.innerHTML = article.substring(0,n);
         window.scrollTo(0, 99999);
-        html.scrollTo(0, 99999);
+        if(telFlag){
+            html.scrollTo(0, 99999);
+        }
         if(n < article.length - 1){
             n += 1;
             step();
         }
      },1);
  }
-
  step();
